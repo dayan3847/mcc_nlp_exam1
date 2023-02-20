@@ -17,6 +17,8 @@ class Exam1:
         self.__names: List = []
         self.nlp = spacy.load("es_core_news_sm")
 
+        self.no_names = ['Gracias', 'Dias', 'Apoyo']
+
     def import_corpus(self, file: str = 'corpus_primer_parcial.xlsx'):
         df: DataFrame = pd.read_excel(file)
         self.corpus = df.iloc[:, 0].tolist()
@@ -30,6 +32,7 @@ class Exam1:
             text = text.replace('$person$', "\033[1;33;40m$person$\033[0m")
             text = text.replace('$email$', "\033[1;33;40m$email$\033[0m")
             text = text.replace('$username$', "\033[1;33;40m$username$\033[0m")
+            text = text.replace('$ip$', "\033[1;33;40m$ip$\033[0m")
             result.append(text)
         return result
 
@@ -56,12 +59,12 @@ class Exam1:
             for text in self.corpus:
                 result = set()
                 text = self.fill_text(text)
+                doc = self.nlp(text)
                 text_lines = text.splitlines()
-                for line in text_lines:
-                    doc = self.nlp(line)
-                    for ent in doc.ents:
-                        if 'PER' == ent.label_:
-                            result.add(ent.text)
+                # for line in text_lines:
+                for ent in doc.ents:
+                    if 'PER' == ent.label_ and ent.text not in self.no_names:
+                        result.add(ent.text)
                 self.__names.append(result)
         return self.__names
 
@@ -117,6 +120,13 @@ class Exam1:
             text = re.sub(r'([\w\.-]+@[\w\.-]+)', r'$email$', text)
             self.corpus[i] = text
 
+    # Exercise Additional
+    def remove_ip(self):
+        for i in range(len(self.corpus)):
+            text = self.corpus[i]
+            text = re.sub(r"\b(?:\d{1,3}\.){3}\d{1,3}\b", r'$ip$', text)
+            self.corpus[i] = text
+
     def print_corpus_changes(self):
         for i in range(len(self.corpus)):
             print()
@@ -131,12 +141,22 @@ class Exam1:
             colorized_corpus = self.get_colorized_corpus()
             print(colorized_corpus[i])
 
+    # create a new file with the corpus
+    def export_corpus(self, prefix: str = ''):
+        for i in range(len(self.corpus)):
+            filename = f'./output/text_{i + 1}{prefix}.txt'
+            with open(filename, 'w') as f:
+                f.write(self.corpus[i])
+
 
 if __name__ == '__main__':
     exam1 = Exam1()
 
     print("\033[1;34;40m 0. Importar corpus \033[0m")
     exam1.import_corpus()
+
+    print("\033[1;34;40m 0. Exportar corpus (estado inicial) \033[0m")
+    exam1.export_corpus()
 
     # Exercise 3
     print("\033[1;34;40m 3. Eliminar códigos que sean basura, ejemplo: %18``.\033[0m")
@@ -155,8 +175,16 @@ if __name__ == '__main__':
         "\033[1;34;40m 2. Quitar los nombres propios que aparezcan y sustituirlos por una etiqueta llamada #Persona. \033[0m")
     exam1.replace_names()
 
+    # Exercise Additional
+    print("\033[1;34;40m 6. Eliminar direcciones IP y sustituirlos por #IP.\033[0m")
+    exam1.remove_ip()
+
     # Exercise 1
     print("\033[1;34;40m 1. Pasar a minúsculas todo el texto \033[0m")
     exam1.to_lower()
+
+    print("\033[1;34;40m 0. Exportar corpus (estado final) \033[0m")
+    # exam1.export_corpus()
+    exam1.export_corpus('_final')
 
     exam1.print_corpus_changes()

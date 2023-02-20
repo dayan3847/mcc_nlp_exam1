@@ -12,4 +12,4 @@ buenas tardes:
 
 quienes colaboran en los departamentos de control escolar y secretaría administrativa de la facultad de derecho.
 
-$person$.
+gracias.

@@ -1,4 +1,4 @@
-minuta no. 771.- $person$ a evento "sesión extraordinaria xviii consejo universitario"
+minuta no. 771.- apoyo a evento "sesión extraordinaria xviii consejo universitario"
 dependencia: coordinación general de tecnologías de información y comunicación
 participantes
 1.-$person$($username$)
