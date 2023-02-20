@@ -1,18 +1,162 @@
+from typing import List
+
+import nltk
+from pandas import DataFrame
 import pandas as pd
+import spacy
+import re
 import openpyxl
 
 
-# This is a sample Python script.
+# ! python -m spacy download es_core_news_sm
 
-# Press Alt+Shift+X to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+class Exam1:
+    def __init__(self):
+        self.corpus: List[str] = []
+        self.original_corpus: List[str] = []
+        self.__names: List = []
+        self.nlp = spacy.load("es_core_news_sm")
+
+    def import_corpus(self, file: str = 'corpus_primer_parcial.xlsx'):
+        df: DataFrame = pd.read_excel(file)
+        self.corpus = df.iloc[:, 0].tolist()
+        # self.corpus = [self.corpus[0]]
+        self.original_corpus = self.corpus.copy()
+
+    def get_colorized_corpus(self) -> List[str]:
+        result = []
+        for text in self.corpus:
+            text = text.replace('$phone$', "\033[1;33;40m$phone$\033[0m")
+            text = text.replace('$person$', "\033[1;33;40m$person$\033[0m")
+            text = text.replace('$email$', "\033[1;33;40m$email$\033[0m")
+            text = text.replace('$username$', "\033[1;33;40m$username$\033[0m")
+            result.append(text)
+        return result
+
+    # Exercise 1
+    def to_lower(self):
+        for i in range(len(self.corpus)):
+            self.corpus[i] = self.corpus[i].lower()
+
+    # Exercise 2
+    def fill_text(self, text: str) -> str:
+        # garantizar espacios en los paréntesis
+        text = re.sub(r'(\S)\(', r'\1 (', text)
+        text = re.sub(r'\)(\S)', r') \1', text)
+        # garantizar espacios en los guiones si es adyacente a una letra
+        # text = re.sub(r'-(\w)', r'- \1', text)
+        # text = re.sub(r'(\w)-', r'\1 -', text)
+        text = re.sub(r'(\S)-', r'\1 -', text)
+        text = re.sub(r'-(\S)', r'- \1', text)
+        # print(text)
+        return text
+
+    def get_names(self) -> List:
+        if 0 == len(self.__names):
+            for text in self.corpus:
+                result = set()
+                text = self.fill_text(text)
+                text_lines = text.splitlines()
+                for line in text_lines:
+                    doc = self.nlp(line)
+                    for ent in doc.ents:
+                        if 'PER' == ent.label_:
+                            result.add(ent.text)
+                self.__names.append(result)
+        return self.__names
+
+    # Exercise 2
+    def replace_names(self):
+        names = self.get_names()
+        for i in range(len(self.corpus)):
+            text = self.corpus[i]
+            for name in names[i]:
+                text = text.replace(name, '$person$')
+            # replace username
+            for name in names[i]:
+                single_names = name.split()
+                if 1 >= len(single_names):
+                    continue
+                for single_name0 in single_names:
+                    for single_name1 in single_names:
+                        if single_name0 == single_name1:
+                            continue
+                        username = f'{single_name0}.{single_name1}'
+                        username = username.lower()
+                        text = text.replace(username, '$username$')
+            # replace single names
+            for name in names[i]:
+                single_names = name.split()
+                if 1 >= len(single_names):
+                    continue
+                for single_name in single_names:
+                    if 4 > len(single_name):
+                        continue
+                    text = text.replace(single_name, '$person$')
+            self.corpus[i] = text
+
+    # Exercise 3
+    def remove_garbage(self):
+        for i in range(len(self.corpus)):
+            text = self.corpus[i]
+            text = re.sub(r'(`)\1+', '', text)
+            text = re.sub(r'(%\d{2})', '', text)
+            self.corpus[i] = text
+
+    # Exercise 4
+    def remove_phone_numbers(self):
+        for i in range(len(self.corpus)):
+            text = self.corpus[i]
+            text = re.sub(r'([\(\s])\d{10}([\)\s])', r'\1$phone$\2', text)
+            self.corpus[i] = text
+
+    # Exercise 5
+    def remove_emails(self):
+        for i in range(len(self.corpus)):
+            text = self.corpus[i]
+            text = re.sub(r'([\w\.-]+@[\w\.-]+)', r'$email$', text)
+            self.corpus[i] = text
+
+    def print_corpus_changes(self):
+        for i in range(len(self.corpus)):
+            print()
+            print()
+            print()
+            print(f'\033[1;32;40m {"-" * 10} Text: {str(i + 1)} {"-" * 10} \033[0m')
+            print()
+            print("\033[1;35;40m Original: \033[0m")
+            print(self.original_corpus[i])
+            print()
+            print("\033[1;35;40m Final: \033[0m")
+            colorized_corpus = self.get_colorized_corpus()
+            print(colorized_corpus[i])
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+Shift+B to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    exam1 = Exam1()
+
+    print("\033[1;34;40m 0. Importar corpus \033[0m")
+    exam1.import_corpus()
+
+    # Exercise 3
+    print("\033[1;34;40m 3. Eliminar códigos que sean basura, ejemplo: %18``.\033[0m")
+    exam1.remove_garbage()
+
+    # Exercise 4
+    print("\033[1;34;40m 4. Eliminar números telefónicos y sustituirlos por #Teléfono.\033[0m")
+    exam1.remove_phone_numbers()
+
+    # Exercise 5
+    print("\033[1;34;40m 5. Eliminar correos electrónicos y sustituirlos por #Email.\033[0m")
+    exam1.remove_emails()
+
+    # Exercise 2
+    print(
+        "\033[1;34;40m 2. Quitar los nombres propios que aparezcan y sustituirlos por una etiqueta llamada #Persona. \033[0m")
+    exam1.replace_names()
+
+    # Exercise 1
+    print("\033[1;34;40m 1. Pasar a minúsculas todo el texto \033[0m")
+    exam1.to_lower()
+
+    exam1.print_corpus_changes()
