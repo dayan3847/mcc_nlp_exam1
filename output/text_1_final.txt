@@ -3,5 +3,9 @@ dependencia: coordinación general de tecnologías de información y comunicaci�
 participantes
 1.-$person$($username$)
 2.-$person$
-3.-$person$: estimada $person$:
+3.-pérez segura wilberth de jesús
+orden del día
+proxima reunión
+
+acuerdo: estimada $person$:
 se solicita su amable apoyo para la aplicación de permisos de acceso desde internet al monitor salud

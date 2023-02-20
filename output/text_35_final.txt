@@ -4,11 +4,12 @@ $person$
 le. maría edith díaz barahona, mee
 $email$
 
-$person$. $person$
+$person$ de gestión de asesores
+psic. $person$
 $email$
 
 $person$ - orientación
-$person$. $person$
+psic. $person$
 $email$,mx 
 
 $person$ control escolar

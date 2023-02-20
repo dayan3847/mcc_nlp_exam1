@@ -61,7 +61,14 @@ class Exam1:
         for line in text_lines:
             if 0 < len(line):
                 text += line[0].upper() + line[1:]
-            text += '\n'
+            text += ' \n'
+            # text += '. '
+        text = re.sub(r'(\s)\1+', ' ', text)
+        # text = text.replace(' .', '.')
+        # text = text.replace('...', '.')
+        # text = text.replace('..', '.')
+        # text = text.replace(',.', ',')
+        # text = text.replace(':.', ':')
         print()
         print("\033[1;35;40m Fixed to extract names: \033[0m")
         print(text)
@@ -76,7 +83,9 @@ class Exam1:
                 doc = self.nlp(text)
                 # for line in text_lines:
                 for ent in doc.ents:
-                    if 'PER' == ent.label_ and str(ent.text).lower() not in self.corpus_no_names:
+                    if 'PER' == ent.label_ \
+                            and str(ent.text).lower() not in self.corpus_no_names \
+                            and -1 == str(ent.text).find('\n'):
                         result.add(ent.text)
                 self.__names.append(result)
         return self.__names

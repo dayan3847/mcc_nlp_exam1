@@ -8,6 +8,10 @@ participantes
 5.-$person$
 6.-$person$ 
 7.-$person$
-8.-$person$: por este medio se solicita crear una sesion en zoom para la "sesión extraordinaria xviii consejo universitario", en caso de que falle en servicio teams.
+8.-solís pomar $person$ javier
+orden del día
+proxima reunión
+
+acuerdo: por este medio se solicita crear una sesion en zoom para la "sesión extraordinaria xviii consejo universitario", en caso de que falle en servicio teams.
 
 fecha: martes 30 junio a las 9:00 am

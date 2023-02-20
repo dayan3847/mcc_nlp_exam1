@@ -3,11 +3,19 @@ dependencia: coordinación general de tecnologías de información y comunicaci�
 participantes
 1.-$person$(spina)
 2.-$person$
-3.-$person$: junio 22, 2020
+3.-rico blanco carlos
+orden del día
+proxima reunión
+
+acuerdo: junio 22, 2020
  
-universidad autonoma de $person$: ventana de mantenimiento.
+universidad autonoma de yucatan
  
-por medio de la presente les informamos la realización de una ventana de mantenimiento, con número de referencia: $person$: encontrar atenuación que presenta el enlace malpaso – cardenas, por lo que se realizaran trazas de otdr, limpieza de fibras y puertos o en su defecto reemplazo de jumpers y/o $person$. 
+asunto: ventana de mantenimiento.
+ 
+por medio de la presente les informamos la realización de una ventana de mantenimiento, con número de referencia: folio  crq000000178255
+ 
+objetivo de la ventana: encontrar atenuación que presenta el enlace malpaso – cardenas, por lo que se realizaran trazas de otdr, limpieza de fibras y puertos o en su defecto reemplazo de jumpers y/o $person$. 
  
 fecha y hora de la ventana: 27 junio del 2020, 07:00 a.m. @ 13:00 p.m. hora centro
 se requiere este horario debido a la inseguridad en la zona.

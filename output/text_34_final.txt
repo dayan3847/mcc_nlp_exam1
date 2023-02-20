@@ -3,15 +3,19 @@ dependencia: coordinación general de tecnologías de información y comunicaci�
 participantes
 1.-$person$(spina)
 2.-$person$
-3.-$person$: notificacion ventana de mantenimiento crq000000178347
+3.-rico blanco carlos
+orden del día
+proxima reunión
+
+acuerdo: asunto: notificacion ventana de mantenimiento $person$
 
 junio 18, 2020
  
 uady
  
-$person$: ventana de mantenimiento.
+asunto: ventana de mantenimiento.
  
-por medio de la presente les informamos la realización de una ventana de mantenimiento mandatoria, con número de referencia: folio  crq000000178347.
+por medio de la presente les informamos la realización de una ventana de mantenimiento mandatoria, con número de referencia: $person$  $person$.
                                                                                                
 objetivo de la ventana: se realizara reparación de fibra óptica dañada por mordedura de roedor, en enlace minatitlán – coatzacoalcos.
  
