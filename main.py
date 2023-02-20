@@ -17,13 +17,17 @@ class Exam1:
         self.__names: List = []
         self.nlp = spacy.load("es_core_news_sm")
 
-        self.no_names = ['Gracias', 'Dias', 'Apoyo']
+        self.corpus_no_names = []
 
     def import_corpus(self, file: str = 'corpus_primer_parcial.xlsx'):
         df: DataFrame = pd.read_excel(file)
         self.corpus = df.iloc[:, 0].tolist()
         # self.corpus = [self.corpus[0]]
         self.original_corpus = self.corpus.copy()
+
+        # import corpus_no_names.txt
+        with open('corpus_no_names.txt', 'r') as f:
+            self.corpus_no_names = f.read().splitlines()
 
     def get_colorized_corpus(self) -> List[str]:
         result = []
@@ -63,7 +67,7 @@ class Exam1:
                 text_lines = text.splitlines()
                 # for line in text_lines:
                 for ent in doc.ents:
-                    if 'PER' == ent.label_ and ent.text not in self.no_names:
+                    if 'PER' == ent.label_ and ent.text not in self.corpus_no_names:
                         result.add(ent.text)
                 self.__names.append(result)
         return self.__names
