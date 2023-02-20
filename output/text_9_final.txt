@@ -8,7 +8,7 @@ participantes
 5.-$person$
 6.-$person$ 
 7.-$person$
-8.-solís pomar $person$ javier
+8.-$person$
 orden del día
 proxima reunión
 

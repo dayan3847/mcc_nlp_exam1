@@ -3,7 +3,7 @@ dependencia: coordinación general de tecnologías de información y comunicaci�
 participantes
 1.-$person$(spina)
 2.-$person$
-3.-rico blanco carlos
+3.-$person$
 orden del día
 proxima reunión
 

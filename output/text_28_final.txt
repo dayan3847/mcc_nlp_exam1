@@ -6,7 +6,7 @@ participantes
 3.-$person$
 4.-arroyo $person$ ángel andrés
 5.-$person$
-6.-díaz $person$ carmen h. de jesús
+6.-$person$
 orden del día
 proxima reunión
 

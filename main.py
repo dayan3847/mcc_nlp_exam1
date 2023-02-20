@@ -76,12 +76,24 @@ class Exam1:
                 doc = self.nlp(text)
                 # for line in text_lines:
                 for ent in doc.ents:
-                    if 'PER' == ent.label_ \
-                            and str(ent.text).lower() not in self.corpus_no_names \
-                            and -1 == str(ent.text).find('\n'):
-                        result.add(ent.text)
+                    ent_srt = str(ent.text)
+                    if 'PER' == ent.label_ and ent_srt.lower() not in self.corpus_no_names:
+                        if -1 == ent_srt.find('\n'):
+                            result.add(ent.text)
+                        else:
+                            result = self.re_analyze(ent_srt, result)
+
                 self.__names.append(result)
         return self.__names
+
+    def re_analyze(self, ent_srt, result):
+        ent_srt = ent_srt.replace('\n', '. ')
+        doc = self.nlp(ent_srt)
+        for ent in doc.ents:
+            ent_srt = str(ent.text)
+            if 'PER' == ent.label_ and ent_srt.lower() not in self.corpus_no_names:
+                result.add(ent.text)
+        return result
 
     # Exercise 2
     def replace_names(self):

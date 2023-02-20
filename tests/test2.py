@@ -4,7 +4,7 @@ import spacy
 nlp = spacy.load("es_core_news_sm")
 
 # Texto de ejemplo
-texto = "Buenos Dias , Como puedo recuperar mi Nombre de usuario "
+texto = "Pérez Segura Wilberth de Jesús. Orden del Día Proxima. Reunión Acuerdo"
 
 # Procesar el texto con Spacy
 doc = nlp(texto)

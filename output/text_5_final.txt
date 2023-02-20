@@ -4,7 +4,7 @@ participantes
 1.-$person$($username$)
 2.-cervera piña marco antonio
 3.-$person$
-4.-baeza marrufo luis alberto
+4.-$person$
 orden del día
 proxima reunión
 
