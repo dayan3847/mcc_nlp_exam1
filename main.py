@@ -46,7 +46,7 @@ class Exam1:
             self.corpus[i] = self.corpus[i].lower()
 
     # Exercise 2
-    def fill_text(self, text: str) -> str:
+    def fix_text(self, text: str) -> str:
         # garantizar espacios en los paréntesis
         text = re.sub(r'(\S)\(', r'\1 (', text)
         text = re.sub(r'\)(\S)', r') \1', text)
@@ -55,19 +55,28 @@ class Exam1:
         # text = re.sub(r'(\w)-', r'\1 -', text)
         text = re.sub(r'(\S)-', r'\1 -', text)
         text = re.sub(r'-(\S)', r'- \1', text)
-        # print(text)
+        # capitalize the first letter
+        text_lines = text.splitlines()
+        text = ''
+        for line in text_lines:
+            if 0 < len(line):
+                text += line[0].upper() + line[1:]
+            text += '\n'
+        print()
+        print("\033[1;35;40m Fixed to extract names: \033[0m")
+        print(text)
+        print()
         return text
 
     def get_names(self) -> List:
         if 0 == len(self.__names):
             for text in self.corpus:
                 result = set()
-                text = self.fill_text(text)
+                text = self.fix_text(text)
                 doc = self.nlp(text)
-                text_lines = text.splitlines()
                 # for line in text_lines:
                 for ent in doc.ents:
-                    if 'PER' == ent.label_ and ent.text not in self.corpus_no_names:
+                    if 'PER' == ent.label_ and str(ent.text).lower() not in self.corpus_no_names:
                         result.add(ent.text)
                 self.__names.append(result)
         return self.__names
@@ -174,14 +183,14 @@ if __name__ == '__main__':
     print("\033[1;34;40m 5. Eliminar correos electrónicos y sustituirlos por #Email.\033[0m")
     exam1.remove_emails()
 
+    # Exercise Additional
+    print("\033[1;34;40m 6. Eliminar direcciones IP y sustituirlos por #IP.\033[0m")
+    exam1.remove_ip()
+
     # Exercise 2
     print(
         "\033[1;34;40m 2. Quitar los nombres propios que aparezcan y sustituirlos por una etiqueta llamada #Persona. \033[0m")
     exam1.replace_names()
-
-    # Exercise Additional
-    print("\033[1;34;40m 6. Eliminar direcciones IP y sustituirlos por #IP.\033[0m")
-    exam1.remove_ip()
 
     # Exercise 1
     print("\033[1;34;40m 1. Pasar a minúsculas todo el texto \033[0m")
