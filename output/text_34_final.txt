@@ -7,7 +7,7 @@ participantes
 orden del día
 proxima reunión
 
-acuerdo: asunto: notificacion ventana de mantenimiento $person$
+acuerdo: asunto: notificacion ventana de mantenimiento crq000000178347
 
 junio 18, 2020
  
@@ -15,7 +15,7 @@ uady
  
 asunto: ventana de mantenimiento.
  
-por medio de la presente les informamos la realización de una ventana de mantenimiento mandatoria, con número de referencia: $person$  $person$.
+por medio de la presente les informamos la realización de una ventana de mantenimiento mandatoria, con número de referencia: folio  crq000000178347.
                                                                                                
 objetivo de la ventana: se realizara reparación de fibra óptica dañada por mordedura de roedor, en enlace minatitlán – coatzacoalcos.
  

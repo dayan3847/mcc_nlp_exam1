@@ -60,10 +60,9 @@ class Exam1:
         text = ''
         for line in text_lines:
             if 0 < len(line):
-                text += line[0].upper() + line[1:]
+                text += str(line[0].upper() + line[1:]).strip()
             text += ' \n'
             # text += '. '
-        text = re.sub(r'(\s)\1+', ' ', text)
         # text = text.replace(' .', '.')
         # text = text.replace('...', '.')
         # text = text.replace('..', '.')
