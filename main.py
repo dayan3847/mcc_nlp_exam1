@@ -62,16 +62,10 @@ class Exam1:
             if 0 < len(line):
                 text += str(line[0].upper() + line[1:]).strip()
             text += ' \n'
-            # text += '. '
-        # text = text.replace(' .', '.')
-        # text = text.replace('...', '.')
-        # text = text.replace('..', '.')
-        # text = text.replace(',.', ',')
-        # text = text.replace(':.', ':')
-        print()
-        print("\033[1;35;40m Fixed to extract names: \033[0m")
-        print(text)
-        print()
+        # print()
+        # print("\033[1;35;40m Fixed to extract names: \033[0m")
+        # print(text)
+        # print()
         return text
 
     def get_names(self) -> List:
